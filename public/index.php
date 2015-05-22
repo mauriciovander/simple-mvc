@@ -1,6 +1,6 @@
 <?
 
-require '../application/bootloader.php';
+require '../system/bootloader.php';
 
 echo OS;
 

@@ -1,0 +1,8 @@
+{
+    "require": {
+	"lusitanian/oauth": "0.1.*@dev",
+        "monolog/monolog": "1.0.*",
+	"swiftmailer/swiftmailer": "5.0.*@dev",
+	"gregwar/captcha": "dev-master"
+    }
+}

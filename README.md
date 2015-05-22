@@ -4,15 +4,15 @@ Another MVC framework
 # Folder Structure
 
 * /application 
-* * /config
-* * /base-classes
+** /config
+** /base-classes
 
 * /system
-* * /controllers
-* * /models
-* * /views
-* * /classes
-* * /includes
+** /controllers
+** /models
+** /views
+** /classes
+** /includes
 
 * /public
-* * index.php
+** index.php

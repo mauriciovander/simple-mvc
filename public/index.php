@@ -7,4 +7,11 @@ $loader = require '../vendor/autoload.php';
 require '../system/bootloader.php';
 
 $app = new Application();
-$app->execute();
+
+
+try {
+	$app->execute();
+}
+catch(Controller_Exception $e) {
+	echo $e->getMessage();
+}

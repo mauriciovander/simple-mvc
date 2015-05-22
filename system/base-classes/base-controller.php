@@ -1,23 +1,17 @@
 <?
 
 interface Base_Controller_Interface {
-
+	public function index();
 }
 
 abstract class Base_Controller implements Base_Controller_Interface {
 
-	private $input,$output;
-
-	public function setOutput($k, $v) {
-		$this->output->{$k} = $v;
-	}
-
-	public function setInput($k, $v) {
-		$this->input->{$k} = $v;
-	}
+	private $input;
+	private $output;
+	private $log;
 
 	public function __set($k,$v){
-		$this->setInput($k,$v);
+		$this->input->{$k} = $v;
 	}
 
 	public function __get($k){
@@ -25,18 +19,27 @@ abstract class Base_Controller implements Base_Controller_Interface {
 		else throw new Exception(get_called_class ()."->$k is not defined", 1);
 	}
 
+	public function __toString(){
+		return json_encode($this->output);
+	}
+
 	public function __construct () {
-		error_log('Loading controller '.get_called_class ());
 		$this->input = new StdClass();
 		$this->output = new StdClass();
+
+		$this->log = new Monolog\Logger(get_called_class());
+		$this->log->pushHandler(new Monolog\Handler\StreamHandler(LOGS.'/app.log', Monolog\Logger::INFO));
+		$this->log->addInfo('Enter controller');
+
 	}
 
 	public function __destruct () {
-		error_log('Exit controller '.get_called_class ());
-		echo json_encode($this->output);
+		$this->log->addInfo('Exit Controller');
+		$this->log->addInfo('input', (array)$this->input);
+		$this->log->addInfo('output',(array)$this->output);
 	}
 
-	public function echoInput() {
+	public function bypass() {
 		$this->output = clone $this->input;
 	}
 }

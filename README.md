@@ -16,3 +16,8 @@ Another MVC framework
 
 * /public
   * index.php
+
+
+
+curl -s http://getcomposer.org/installer | php
+

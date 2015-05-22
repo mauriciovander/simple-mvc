@@ -3,11 +3,11 @@ Another MVC framework
 
 # Folder Structure
 
-* /application 
+* /system 
   * /config
   * /base-classes
 
-* /system
+* /application
   * /controllers
   * /models
   * /views

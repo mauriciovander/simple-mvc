@@ -1,8 +1,8 @@
 <?
 
-require SYSTEM.'/base-controller.php';
-require SYSTEM.'/base-model.php';
-require SYSTEM.'/base-class.php';
+require BASE_CLASSES.'/base-controller.php';
+require BASE_CLASSES.'/base-model.php';
+require BASE_CLASSES.'/base-class.php';
 
 /***********************/
 /*  GENERIC AUTOLODER  */

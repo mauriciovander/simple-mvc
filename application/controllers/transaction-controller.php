@@ -58,12 +58,24 @@ class Transaction_Controller extends Base_Controller {
 		$callback_url = urlencode('http://callback_url.com?id='.$transaction->id.'&signature='.$signature);
 		
 		$curl = new Curl\Curl();
-		$curl->post($callback_url, array(
+		$curl->setopt(CURLOPT_RETURNTRANSFER, TRUE);
+		$curl->setopt(CURLOPT_SSL_VERIFYPEER, FALSE);
+		$result = $curl->post($callback_url, array(
 		    'method' => 'create',
 		    'cors' => 'true',
 		    'format' => 'plain',
 		    'address' => ADDRESS,
 		    'shared' => false
 		));
+		
+		$curl->close();
+		
+		// save response parameters
+		$transaction->input_address = $result->input_address;
+		$transaction->fee_percent = $result->fee_percent;
+		$transaction->destination_address = $result->destination;
+		$transaction->fee_percent = $result->fee_percent;
+	    
+		$transaction->save();
 	}
 }

@@ -22,9 +22,11 @@ class Application {
 
 	public function __construct() {
 
+		error_log(json_encode($_REQUEST));
+		
 		$parts = explode ( '/', $_REQUEST['rt'] );
 		$o = array('controller','action','params');
-
+		
 		$this->controller = reset($parts);
 		if(empty($this->controller)) $this->controller = 'index';
 		$controller_name = ucwords(strtolower($this->controller)).'_Controller';

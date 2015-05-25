@@ -55,7 +55,7 @@ class Transaction_Controller extends Base_Controller {
 		
 		$signature = sha1($transaction->id . SECRET);
 		
-		$callback_url = urlencode('http://callback_url.com?id='.$transaction->id.'&signature='.$signature);
+		$callback_url = urlencode('http://'.$_SERVER'HTTP_HOST'].'/transaction?id='.$transaction->id.'&signature='.$signature);
 		
 		$curl = new Curl\Curl();
 		$curl->setopt(CURLOPT_RETURNTRANSFER, TRUE);

@@ -23,9 +23,6 @@ class Transaction_Controller extends Base_Controller {
 	    //value=4711363480
 	    //transaction_hash=82e4253a1995de994829e33f8c58ed9e81780f966078ef010b50fcb55ddca70a
 	    
-	    $this->bypass();
-	    error_log($this);
-	    
 	    $transaction = new Transaction_Model();
 	    $transaction->input_transaction_hash = $this->input_transaction_hash;
 	    $transaction->shared = $this->shared;
@@ -42,7 +39,6 @@ class Transaction_Controller extends Base_Controller {
 	    $transaction->save();
 	    
 	    $this->log->addInfo($transaction);
-	    error_log(json_encode($transaction));
     
 	}
 	
@@ -81,5 +77,7 @@ class Transaction_Controller extends Base_Controller {
 		$transaction->fee_percent = $result->fee_percent;
 	    
 		$transaction->save();
+		
+		$this->log->addInfo($transaction);
 	}
 }

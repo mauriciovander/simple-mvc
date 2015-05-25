@@ -15,7 +15,7 @@ abstract class Base_Model implements Base_Model_Interface {
 	}
 
 	public function __toString(){
-		return json_encode($this->output);
+		return json_encode($this);
 	}
 	
 	public function save(){

@@ -42,6 +42,7 @@ class Transaction_Controller extends Base_Controller {
 	    $transaction->save();
 	    
 	    $this->log->addInfo($transaction);
+	    error_log(json_encode($transaction));
     
 	}
 	

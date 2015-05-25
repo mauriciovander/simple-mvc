@@ -41,4 +41,29 @@ class Transaction_Controller extends Base_Controller {
 	    $this->log->addInfo($transaction);
     
 	}
+	
+	public function create(){
+		$transaction = new Transaction_Model();
+		$transaction->id = 'TEST_ID'; 
+		$url = 'https://blockchain.info/api/receive';
+
+		// method=create
+		// cors=true
+		// format=plain
+		// address=1DAKHEEzx2YGZF4tUdkJzt7TNHCteUpV9
+		// shared=false
+		
+		$signature = sha1($transaction->id . SECRET);
+		
+		$callback_url = urlencode('http://callback_url.com?id='.$transaction->id.'&signature='.$signature);
+		
+		$curl = new Curl\Curl();
+		$curl->post($callback_url, array(
+		    'method' => 'create',
+		    'cors' => 'true',
+		    'format' => 'plain',
+		    'address' => ADDRESS,
+		    'shared' => false
+		));
+	}
 }

@@ -22,6 +22,8 @@ class Transaction_Controller extends Base_Controller {
 	    //confirmations=0
 	    //value=4711363480
 	    //transaction_hash=82e4253a1995de994829e33f8c58ed9e81780f966078ef010b50fcb55ddca70a
+	    
+	    $this->bypass();
 	    error_log($this);
 	    
 	    $transaction = new Transaction_Model();

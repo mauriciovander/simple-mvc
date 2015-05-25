@@ -17,7 +17,7 @@ abstract class Base_Controller implements Base_Controller_Interface {
 
 	private $input;
 	private $output;
-	private $log;
+	protected $log;
 
 	public function __set($k,$v){
 		$this->input->{$k} = $v;

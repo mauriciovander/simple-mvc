@@ -60,7 +60,7 @@ class Transaction_Controller extends Base_Controller {
 		$curl = new Curl\Curl();
 		$curl->setopt(CURLOPT_RETURNTRANSFER, TRUE);
 		$curl->setopt(CURLOPT_SSL_VERIFYPEER, FALSE);
-		$result = $curl->post($callback_url, array(
+		$result = $curl->get($callback_url, array(
 		    'method' => 'create',
 		    'cors' => 'true',
 		    'format' => 'plain',

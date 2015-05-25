@@ -1,9 +1,32 @@
 {
+    "name": "mauriciovander/simple-mvc",
+    "description": "Simple MVC Framework",
+    "authors": [
+        {
+            "name": "Mauricio van der Maesen de Sombreff",
+            "email": "mauriciovander@gmail.com",
+            "homepage": "https://github.com/mauriciovander",
+            "role": "Developer"
+        }
+    ],
+    "packages":{
+        "mauriciovander/simple-mvc":{
+                "dev-master":{@composer.json}
+        }
+    },
     "require": {
-	"lusitanian/oauth": "0.1.*@dev",
-        "monolog/monolog": "1.0.*",
-	"swiftmailer/swiftmailer": "5.0.*@dev",
-	"gregwar/captcha": "dev-master",
-	"phpunit/phpunit": "4.8.*@dev"
-    }
+        "phpunit/phpunit": "4.8.*@dev",
+        "monolog/monolog": "1.13.*@dev",
+        "gregwar/captcha": "dev-master"
+    },
+    "support": {
+        "email": "mauriciovander@gmail.com",
+        "source": "https://github.com/mauriciovander/simple-mvc.git"
+    },
+    "repositories": [
+        {
+                "type":"vcs",
+                "url":"https://github.com/mauriciovander/simple-mvc.git"
+        }
+    ]
 }

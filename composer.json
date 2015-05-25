@@ -16,7 +16,8 @@
     "require": {
         "phpunit/phpunit": "4.8.*@dev",
         "monolog/monolog": "1.13.*@dev",
-        "gregwar/captcha": "dev-master"
+        "gregwar/captcha": "dev-master",
+        "blockchain/blockchain": "dev-master"
     },
     "support": {
         "email": "mauriciovander@gmail.com",

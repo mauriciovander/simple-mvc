@@ -22,9 +22,10 @@ class Application {
 
 	public function __construct() {
 
-		error_log(json_encode($_REQUEST));
 		
 		$parts = explode ( '/', $_REQUEST['rt'] );
+		unset($_REQUEST['rt']);
+		
 		$o = array('controller','action','params');
 		
 		$this->controller = reset($parts);
@@ -41,6 +42,9 @@ class Application {
 			$v = next($parts);
 			if(!empty($v)) $this->controller->$k = $v;
 			$k = next($parts);
+		}
+		foreach($_REQUEST as $k=>$v){
+			$this->controller->$k = $v;
 		}
 	}
 

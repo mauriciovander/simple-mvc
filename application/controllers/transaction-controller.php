@@ -38,19 +38,25 @@ class Transaction_Controller extends Base_Controller {
 		
 		$callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/transaction?id='.$transaction->id.'&signature='.$signature);
 		
-		$root_url = 'https://blockchain.info/api/receive';
-		$parameters = 'method=create&address=' . ADDRESS .'&callback='. $callback_url;
-		$response = file_get_contents($root_url . '?' . $parameters);
-		$object = json_decode($response);
+		$blockchain = new \Blockchain\Blockchain(BLOCKCHAIN_API_KEY);
+		$blockchain->setTimeout($timeout_seconds);
+		
+		$object = $blockchain->Receive->generate(ADDRESS, $callback_url);
+		
+		
+		// $root_url = 'https://blockchain.info/api/receive';
+		// $parameters = 'method=create&address=' . ADDRESS .'&callback='. $callback_url;
+		// $response = file_get_contents($root_url . '?' . $parameters);
+		// $object = json_decode($response);
 	
 		// save response parameters
-		$transaction->input_address = $object->input_address;
+		$transaction->input_address = $object->address;
 		$transaction->destination = $object->destination;
 		$transaction->fee_percent = $object->fee_percent;
 
 		$transaction->save();
 		
-		echo 'Send coins to '.$object->input_address;
+		echo 'Send coins to '.$object->address;
 		
 		$this->log->addInfo($transaction);
 	}

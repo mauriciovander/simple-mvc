@@ -1,8 +1,6 @@
 <?
 
-interface Base_Controller_Interface {
-	public function index();
-}
+interface Base_Controller_Interface { public function index(); }
 
 class Controller_Exception extends Exception {
 	public function __construct($message, $error_code = 0, Exception $previous = null) {
@@ -17,32 +15,14 @@ abstract class Data_Object implements JsonSerializable{
 	public $value;
 	public $method;
 	public $type;
-
-	public function __construct($value){
-		$this->value = $value;
-	}
-
-	function jsonSerialize(){ 
-		return $this->value;
-	}
-
-	function __sleep(){ 
-		return array('value','method','type');
-	}
-
-	public function __toString(){
-		return $this->value;
-	}
+	public function __construct($value) { $this->value = $value; }
+	public function jsonSerialize() { return $this->value; }
+	public function __sleep() { return array('value','method','type'); }
+	public function __toString() { return $this->value; }
 }
 
-class Input_Data_Object extends Data_Object {
-	public $type = 'input';
-}
-
-class Output_Data_Object extends Data_Object {
-	public $type = 'output';
-}
-
+class Input_Data_Object extends Data_Object { public $type = 'input'; }
+class Output_Data_Object extends Data_Object { public $type = 'output'; }
 
 abstract class Base_Controller implements Base_Controller_Interface {
 
@@ -50,36 +30,31 @@ abstract class Base_Controller implements Base_Controller_Interface {
 	private $output;
 	protected $log;
 
-	public function __set($k,$v){
-		$this->input->{$k} = new Input_Data_Object($v);
-	}
-
-	public function __get($k){
+	public function __toString() { return json_encode($this->output); }
+	public function __set($k,$v) { $this->input->{$k} = new Input_Data_Object($v); }
+	public function __get($k) {
 		if(isset($this->input->{$k})) return $this->input->{$k};
 		else throw new Controller_Exception(get_called_class ()."->$k is not defined", 1);
 	}
 
-	public function __toString(){
-		return json_encode($this->output);
-	}
-
+	public function __destruct () {}
 	public function __construct () {
 		$this->input = new StdClass();
 		$this->output = new StdClass();
-
 		$this->log = new Monolog\Logger(get_called_class());
 		$this->log->pushHandler(new Monolog\Handler\StreamHandler(LOGS.'/app.log', Monolog\Logger::INFO));
-//		$this->log->addInfo('Enter controller');
-
 	}
 
-	public function __destruct () {
-//		$this->log->addInfo('Exit Controller');
-//		$this->log->addInfo('input', (array)$this->input);
-//		$this->log->addInfo('output',(array)$this->output);
-	}
 
-	public function bypass() {
-		$this->output = clone $this->input;
-	}
+  public function render($template_path = null) {
+    try {
+      if(is_null($template_path)) include(VIEWS.'/'.$this->controller.'/'.$this->action.'.php');
+      else include($template_path);
+    }
+    catch(Exception $e) {
+      throw new Controller_Exception('Missing template', 0, $e);
+    }
+  }
+  
+	public function bypass() { $this->output = clone $this->input; }
 }

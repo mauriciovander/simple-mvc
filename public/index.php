@@ -12,6 +12,6 @@ $app = new Application();
 try {
 	$app->execute();
 }
-catch(Controller_Exception $e) {
+catch(Controller_Exception $e) { 
 	echo $e->getMessage();
 }

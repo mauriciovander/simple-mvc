@@ -40,14 +40,19 @@ class Application {
 		$k = next($parts);
 		while($k){
 			$v = next($parts);
-			if(!empty($v)) $this->controller->get->$k = $v;
+			if(!empty($v)) {
+				$this->controller->{$k}= $v;
+				$this->controller->method = 'get';
+			}
 			$k = next($parts);
 		}
 		foreach($_GET as $k=>$v){
-			$this->controller->$k = $v;
+			$this->controller->{$k}= $v;
+			$this->controller->method = 'get';
 		}
 		foreach($_POST as $k=>$v){
-			$this->controller->$k = $v;
+			$this->controller->{$k}= $v;
+			$this->controller->method = 'post';
 		}
 	}
 

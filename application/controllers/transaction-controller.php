@@ -39,7 +39,7 @@ class Transaction_Controller extends Base_Controller {
 		$callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/transaction?id='.$transaction->id.'&signature='.$signature);
 		
 		$blockchain = new \Blockchain\Blockchain(BLOCKCHAIN_API_KEY);
-		$blockchain->setTimeout($timeout_seconds);
+		//$blockchain->setTimeout(10);
 		
 		$object = $blockchain->Receive->generate(ADDRESS, $callback_url);
 		

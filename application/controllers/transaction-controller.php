@@ -47,7 +47,7 @@ class Transaction_Controller extends Base_Controller {
 			'api_code' => BLOCKCHAIN_API_KEY,
 			'method' => 'create',
 			'address' => ADDRESS,
-			'callback' => urlencode($callback_url)
+			'callback' => $callback_url
 			);
 			
 		echo $root_url . '?' . http_build_query($parameters);

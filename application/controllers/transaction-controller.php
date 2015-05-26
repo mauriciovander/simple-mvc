@@ -60,12 +60,7 @@ class Transaction_Controller extends Base_Controller {
 
 		$transaction->save();
 		
-		echo '<img src="https://blockchain.info/qr?data=' . 
-			$response->input_address . 
-			'&size=200" alt="Send coins to ' . 
-			$response->input_address . '" />';
-		echo '<br/>';
-		echo 'Send coins to ' . $response->input_address;
+		$this->render();
 		
 		$this->log->addInfo($transaction);
 	}

@@ -62,8 +62,6 @@ class Transaction_Controller extends Base_Controller {
 		$blockchain = new \Blockchain\Blockchain($api_code);
 		$response = $blockchain->Receive->generate(ADDRESS, $callback_url);
 		
-		error_log(json_encode($response));
-		
 		// save response parameters
 		$transaction->input_address = $response->address;
 		// $transaction->fee_percent = $response->fee_percent;

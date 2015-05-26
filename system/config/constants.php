@@ -1,5 +1,10 @@
 <?
 
+// place your personal config settings in application scope
+// SUGGESTION: use /usr/share/php5/global_config.php and set 
+// your valid paths in php.ini
+include 'global_config.php';
+
 define('BACKEND',php_uname('n'));
 define('ARCHITECTURE',php_uname('m'));
 define('OS',php_uname('s'));

@@ -13,14 +13,37 @@ class Controller_Exception extends Exception {
 	}		
 }
 
+abstract class Data_Object {
+	public $value;
+
+	public function __construct($value,$method = null){
+		$this->value = $value;
+	}
+
+	public function __toString(){
+		return $this->value;
+	}
+}
+
+class Input_Data_Object extends Data_Object {
+	public $method;
+	public $type = 'input';
+}
+
+class Output_Data_Object extends Data_Object {
+	public $method;
+	public $type = 'output';
+}
+
+
 abstract class Base_Controller implements Base_Controller_Interface {
 
 	private $input;
 	private $output;
 	protected $log;
 
-	public function __set($k,$v){
-		$this->input->{$k} = $v;
+	public function __set($k,$v,$method = null){
+		$this->input->{$k} = new Input_Data_Object($v, $method);
 	}
 
 	public function __get($k){
@@ -38,14 +61,14 @@ abstract class Base_Controller implements Base_Controller_Interface {
 
 		$this->log = new Monolog\Logger(get_called_class());
 		$this->log->pushHandler(new Monolog\Handler\StreamHandler(LOGS.'/app.log', Monolog\Logger::INFO));
-		$this->log->addInfo('Enter controller');
+//		$this->log->addInfo('Enter controller');
 
 	}
 
 	public function __destruct () {
-		$this->log->addInfo('Exit Controller');
-		$this->log->addInfo('input', (array)$this->input);
-		$this->log->addInfo('output',(array)$this->output);
+//		$this->log->addInfo('Exit Controller');
+//		$this->log->addInfo('input', (array)$this->input);
+//		$this->log->addInfo('output',(array)$this->output);
 	}
 
 	public function bypass() {

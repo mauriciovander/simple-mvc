@@ -59,29 +59,34 @@ class Transaction_Controller extends Base_Controller {
 		
 		
 		$api_code = 'API_CODE';
-		$blockchain = new \Blockchain\Blockchain($api_code);
-		$response = $blockchain->Receive->generate(ADDRESS, $callback_url);
 		
+		// $blockchain = new \Blockchain\Blockchain($api_code);
+		// $response = $blockchain->Receive->generate(ADDRESS, $callback_url);
+		
+		$root_url = 'https://blockchain.info/api/receive';
+		$parameters = 'method=create&address=' . ADDRESS .'&callback='. $callback_url;
+		$response = file_get_contents($root_url . '?' . $parameters);
+		$object = json_decode($response);
+	
 		// save response parameters
-		$transaction->input_address = $response->address;
-		// $transaction->fee_percent = $response->fee_percent;
-		// $transaction->destination_address = $response->destination;
+		$transaction->input_address = $object->input_address;
+		$transaction->destination = $response->destination;
+		$transaction->fee_percent = $response->fee_percent;
 
 		$transaction->save();
 		
 		$qrCode = new Endroid\QrCode\QrCode\QrCode();
 		$qrCode
-		    ->setText($response->address)
+		    ->setText($object->input_address)
 		    ->setSize(300)
 		    ->setPadding(10)
 		    ->setErrorCorrection('high')
 		    ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
 		    ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-		    ->setLabel('Send coins to '.$response->address)
+		    ->setLabel('Send coins to '.$object->input_address)
 		    ->setLabelFontSize(16)
 		    ->render()
 		;
-		
 		
 		$this->log->addInfo($transaction);
 	}

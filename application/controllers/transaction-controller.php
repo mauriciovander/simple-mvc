@@ -8,6 +8,10 @@
 class Transaction_Controller extends Base_Controller {
 	public function index(){
     
+    	    if(sha1($this->id . SECRET)!==$this->signature){
+    	    	throw new Controller_Exception('Invalid Signature', 1);
+    	    }
+    
 	    $transaction = new Transaction_Model;
 	    $transaction->input_transaction_hash = $this->input_transaction_hash;
 	    $transaction->shared = $this->shared;

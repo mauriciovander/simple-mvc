@@ -78,6 +78,21 @@ class Transaction_Controller extends Base_Controller {
 	    
 		$transaction->save();
 		
+		
+		$qrCode = new Endroid\QrCode\QrCode\QrCode();
+		$qrCode
+		    ->setText($result->input_address)
+		    ->setSize(300)
+		    ->setPadding(10)
+		    ->setErrorCorrection('high')
+		    ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
+		    ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
+		    ->setLabel($result->input_address)
+		    ->setLabelFontSize(16)
+		    ->render()
+		;
+		
+		
 		$this->log->addInfo($transaction);
 	}
 }

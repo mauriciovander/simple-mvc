@@ -49,6 +49,9 @@ class Transaction_Controller extends Base_Controller {
 			'address' => ADDRESS,
 			'callback' => urlencode($callback_url)
 			);
+			
+		echo $root_url . '?' . http_build_query($parameters);
+			
 		$contents = file_get_contents($root_url . '?' . http_build_query($parameters));
 		$response = json_decode($contents);
 	

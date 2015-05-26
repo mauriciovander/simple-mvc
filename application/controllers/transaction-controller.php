@@ -4,8 +4,9 @@
 // https://blockchain.info/api/api_receive/
 
 class Transaction_Controller extends Base_Controller {
-	public function index(){
-    
+	public function index(){}
+	
+	public function update(){
     	    if(sha1($this->id . SECRET) !== $this->signature){
     	    	throw new Controller_Exception('Invalid Signature', 1);
     	    }
@@ -36,13 +37,12 @@ class Transaction_Controller extends Base_Controller {
 
 		$signature = sha1($transaction->id . SECRET);
 		
-		$callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/transaction?id='.$transaction->id.'&signature='.$signature);
+		$callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/transaction/update/id/'.$transaction->id.'/signature/'.$signature);
 		
 		$blockchain = new \Blockchain\Blockchain(BLOCKCHAIN_API_KEY);
 		//$blockchain->setTimeout(10);
 		
-		$object = $blockchain->Receive->generate(ADDRESS, $callback_url);
-		
+		$response = $blockchain->Receive->generate(ADDRESS, $callback_url);
 		
 		// $root_url = 'https://blockchain.info/api/receive';
 		// $parameters = 'method=create&address=' . ADDRESS .'&callback='. $callback_url;
@@ -50,13 +50,13 @@ class Transaction_Controller extends Base_Controller {
 		// $object = json_decode($response);
 	
 		// save response parameters
-		$transaction->input_address = $object->address;
-		$transaction->destination = $object->destination;
-		$transaction->fee_percent = $object->fee_percent;
+		$transaction->input_address = $response->address;
+		$transaction->destination = $response->destination;
+		$transaction->fee_percent = $response->fee_percent;
 
 		$transaction->save();
 		
-		echo 'Send coins to '.$object->address;
+		echo 'Send coins to '.$response->address;
 		
 		$this->log->addInfo($transaction);
 	}

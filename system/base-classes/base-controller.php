@@ -28,6 +28,7 @@ abstract class Base_Controller implements Base_Controller_Interface {
 
 	private $input;
 	private $output;
+	private $router;
 	protected $log;
 
 	public function __toString() { return json_encode($this->output); }
@@ -38,7 +39,8 @@ abstract class Base_Controller implements Base_Controller_Interface {
 	}
 
 	public function __destruct () {}
-	public function __construct () {
+	public function __construct (Router $router) {
+	  $this->router = $router;
 		$this->input = new StdClass();
 		$this->output = new StdClass();
 		$this->log = new Monolog\Logger(get_called_class());
@@ -47,7 +49,7 @@ abstract class Base_Controller implements Base_Controller_Interface {
 
 
   public function render($template_path = null) {
-    if(is_null($template_path)) $template_path = $this->controller.'/'.$this->action.'.php';
+    if(is_null($template_path)) $template_path = $this->router->controller.'/'.$this->router->action.'.php';
     try {
       include(VIEWS.'/'.$template_path);
     }

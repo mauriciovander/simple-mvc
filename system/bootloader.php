@@ -15,14 +15,12 @@ require CONFIG.'/constants.php';
 
 require 'autoloader.php';
 
-
-class Application {
+class Router {
 	private $controller;
 	private $action;
 
 	public function __construct() {
 
-		
 		$parts = explode ( '/', $_REQUEST['rt'] );
 		unset($_REQUEST['rt']);
 		
@@ -31,7 +29,7 @@ class Application {
 		$this->controller = reset($parts);
 		if(empty($this->controller)) $this->controller = 'index';
 		$controller_name = ucwords(strtolower($this->controller)).'_Controller';
-		$this->controller = new $controller_name();
+		$this->controller = new $controller_name($this);
 
 		$this->action = next($parts);
 		if(empty($this->action)) $this->action = 'index';

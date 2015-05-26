@@ -6,11 +6,11 @@ $loader = require '../vendor/autoload.php';
 
 require '../system/bootloader.php';
 
-$app = new Application();
+$router = new Router();
 
 
 try {
-	$app->execute();
+	$router->execute();
 }
 catch(Controller_Exception $e) { 
 	echo $e->getMessage();

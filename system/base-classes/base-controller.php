@@ -23,7 +23,7 @@ abstract class Data_Object implements JsonSerializable{
 	}
 
 	function jsonSerialize(){ 
-		return $this->$value;
+		return $this->value;
 	}
 
 	function __sleep(){ 

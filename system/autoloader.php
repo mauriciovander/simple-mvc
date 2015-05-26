@@ -1,9 +1,5 @@
 <?
 
-require BASE_CLASSES.'/base-controller.php';
-require BASE_CLASSES.'/base-model.php';
-require BASE_CLASSES.'/base-class.php';
-
 /***********************/
 /*  GENERIC AUTOLODER  */
 /***********************/
@@ -22,7 +18,6 @@ function generic_class_loader($name,$prefix, $folder) {
 
 			// check if the class extends Base
 			if(!in_array('Base_'.$prefix.'_Interface',class_implements($name))) throw new Exception("$name must implement Base_$prefix", 1);
-
 		} 
 		else {
 			throw new Exception("$path not found", 1);	

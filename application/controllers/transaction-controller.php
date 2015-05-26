@@ -8,7 +8,7 @@
 class Transaction_Controller extends Base_Controller {
 	public function index(){
     
-    	    if(sha1($this->id . SECRET)!==$this->signature){
+    	    if(sha1($this->id . SECRET) !== $this->signature){
     	    	throw new Controller_Exception('Invalid Signature', 1);
     	    }
     

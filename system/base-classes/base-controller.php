@@ -13,12 +13,21 @@ class Controller_Exception extends Exception {
 	}		
 }
 
-abstract class Data_Object {
+abstract class Data_Object implements JsonSerializable{
 	public $value;
 	public $method;
+	public $type;
 
 	public function __construct($value){
 		$this->value = $value;
+	}
+
+	function jsonSerialize(){ 
+		return $this->$value;
+	}
+
+	function __sleep(){ 
+		return array('value','method','type');
 	}
 
 	public function __toString(){

@@ -75,6 +75,8 @@ class Transaction_Controller extends Base_Controller {
 
 		$transaction->save();
 		
+		header('Content-Type: image/png');
+
 		$qrCode = new Endroid\QrCode\QrCode;
 		$qrCode
 		    ->setText($object->input_address)

@@ -47,12 +47,12 @@ abstract class Base_Controller implements Base_Controller_Interface {
 
 
   public function render($template_path = null) {
+    if(is_null($template_path)) $template_path = $this->controller.'/'.$this->action.'.php';
     try {
-      if(is_null($template_path)) include(VIEWS.'/'.$this->controller.'/'.$this->action.'.php');
-      else include($template_path);
+      include(VIEWS.'/'.$template_path);
     }
     catch(Exception $e) {
-      throw new Controller_Exception('Missing template', 0, $e);
+      throw new Controller_Exception('Missing template at '.$template_path, 0, $e);
     }
   }
   

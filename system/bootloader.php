@@ -42,17 +42,17 @@ class Application {
 			$v = next($parts);
 			if(!empty($v)) {
 				$this->controller->{$k}= $v;
-				$this->controller->method = 'get';
+				$this->controller->{$k}->method = 'get';
 			}
 			$k = next($parts);
 		}
 		foreach($_GET as $k=>$v){
 			$this->controller->{$k}= $v;
-			$this->controller->method = 'get';
+			$this->controller->{$k}->method = 'get';
 		}
 		foreach($_POST as $k=>$v){
 			$this->controller->{$k}= $v;
-			$this->controller->method = 'post';
+			$this->controller->{$k}->method = 'post';
 		}
 	}
 

@@ -43,8 +43,13 @@ class Transaction_Controller extends Base_Controller {
 		// $response = $blockchain->Receive->generate(ADDRESS, $callback_url);
 		
 		$root_url = 'https://blockchain.info/api/receive';
-		$parameters = 'method=create&address=' . ADDRESS .'&callback='. urlencode($callback_url);
-		$contents = file_get_contents($root_url . '?' . $parameters);
+		$parameters = array(
+			'api_code' => BLOCKCHAIN_API_KEY,
+			'method' => 'create',
+			'address' => ADDRESS,
+			'callback' => urlencode($callback_url);
+			);
+		$contents = file_get_contents($root_url . '?' . http_build_query($parameters));
 		$response = json_decode($contents);
 	
 		// save response parameters

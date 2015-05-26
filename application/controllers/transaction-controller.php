@@ -23,7 +23,7 @@ class Transaction_Controller extends Base_Controller {
 	    //value=4711363480
 	    //transaction_hash=82e4253a1995de994829e33f8c58ed9e81780f966078ef010b50fcb55ddca70a
 	    
-	    $transaction = new Transaction_Model();
+	    $transaction = new Transaction_Model;
 	    $transaction->input_transaction_hash = $this->input_transaction_hash;
 	    $transaction->shared = $this->shared;
 	    $transaction->address = $this->address;
@@ -43,7 +43,7 @@ class Transaction_Controller extends Base_Controller {
 	}
 	
 	public function create(){
-		$transaction = new Transaction_Model();
+		$transaction = new Transaction_Model;
 		$transaction->id = 'TEST_ID'; 
 		$url = 'https://blockchain.info/api/receive';
 
@@ -70,12 +70,12 @@ class Transaction_Controller extends Base_Controller {
 	
 		// save response parameters
 		$transaction->input_address = $object->input_address;
-		$transaction->destination = $response->destination;
-		$transaction->fee_percent = $response->fee_percent;
+		$transaction->destination = $object->destination;
+		$transaction->fee_percent = $object->fee_percent;
 
 		$transaction->save();
 		
-		$qrCode = new Endroid\QrCode\QrCode\QrCode();
+		$qrCode = new Endroid\QrCode\QrCode;
 		$qrCode
 		    ->setText($object->input_address)
 		    ->setSize(300)

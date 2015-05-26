@@ -44,17 +44,17 @@ class Transaction_Controller extends Base_Controller {
 		
 		$root_url = 'https://blockchain.info/api/receive';
 		$parameters = 'method=create&address=' . ADDRESS .'&callback='. urlencode($callback_url);
-		$response = file_get_contents($root_url . '?' . $parameters);
-		$response = json_decode($response);
+		$contents = file_get_contents($root_url . '?' . $parameters);
+		$response = json_decode($contents);
 	
 		// save response parameters
-		$transaction->input_address = $response->address;
+		$transaction->input_address = $response->input_address;
 		$transaction->destination = $response->destination;
 		$transaction->fee_percent = $response->fee_percent;
 
 		$transaction->save();
 		
-		echo 'Send coins to '.$response->address;
+		echo 'Send coins to ' . $response->input_address;
 		
 		$this->log->addInfo($transaction);
 	}

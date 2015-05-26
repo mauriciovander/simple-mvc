@@ -15,8 +15,9 @@ class Controller_Exception extends Exception {
 
 abstract class Data_Object {
 	public $value;
+	public $method;
 
-	public function __construct($value,$method = null){
+	public function __construct($value){
 		$this->value = $value;
 	}
 
@@ -26,12 +27,10 @@ abstract class Data_Object {
 }
 
 class Input_Data_Object extends Data_Object {
-	public $method;
 	public $type = 'input';
 }
 
 class Output_Data_Object extends Data_Object {
-	public $method;
 	public $type = 'output';
 }
 

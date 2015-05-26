@@ -40,10 +40,13 @@ class Application {
 		$k = next($parts);
 		while($k){
 			$v = next($parts);
-			if(!empty($v)) $this->controller->$k = $v;
+			if(!empty($v)) $this->controller->get->$k = $v;
 			$k = next($parts);
 		}
-		foreach($_REQUEST as $k=>$v){
+		foreach($_GET as $k=>$v){
+			$this->controller->$k = $v;
+		}
+		foreach($_POST as $k=>$v){
 			$this->controller->$k = $v;
 		}
 	}

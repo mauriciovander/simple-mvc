@@ -57,38 +57,29 @@ class Transaction_Controller extends Base_Controller {
 		
 		$callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/transaction?id='.$transaction->id.'&signature='.$signature);
 		
-		$curl = new Curl\Curl();
-		$curl->setopt(CURLOPT_RETURNTRANSFER, TRUE);
-		$curl->setopt(CURLOPT_SSL_VERIFYPEER, FALSE);
-		$result = $curl->get($url, array(
-		    'method' => 'create',
-		    'cors' => 'true',
-		    'format' => 'plain',
-		    'address' => ADDRESS,
-		    'shared' => false,
-		    'callback_url' => $callback_url
-		));
 		
-		$curl->close();
+		$api_code = 'API_CODE';
+		$blockchain = new \Blockchain\Blockchain($api_code);
+		$response = $blockchain->Receive->generate(ADDRESS, $callback_url);
+		
+		error_log(json_encode($response));
 		
 		// save response parameters
-		$transaction->input_address = $result->input_address;
-		$transaction->fee_percent = $result->fee_percent;
-		$transaction->destination_address = $result->destination;
-		$transaction->fee_percent = $result->fee_percent;
-	    
+		$transaction->input_address = $response->address;
+		// $transaction->fee_percent = $response->fee_percent;
+		// $transaction->destination_address = $response->destination;
+
 		$transaction->save();
-		
 		
 		$qrCode = new Endroid\QrCode\QrCode\QrCode();
 		$qrCode
-		    ->setText($result->input_address)
+		    ->setText($response->address)
 		    ->setSize(300)
 		    ->setPadding(10)
 		    ->setErrorCorrection('high')
 		    ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
 		    ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-		    ->setLabel($result->input_address)
+		    ->setLabel('Send coins to '.$response->address)
 		    ->setLabelFontSize(16)
 		    ->render()
 		;

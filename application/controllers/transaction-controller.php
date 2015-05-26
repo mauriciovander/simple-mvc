@@ -37,17 +37,15 @@ class Transaction_Controller extends Base_Controller {
 
 		$signature = sha1($transaction->id . SECRET);
 		
-		$callback_url = urlencode('http://'.$_SERVER['HTTP_HOST'].'/transaction/update/id/'.$transaction->id.'/signature/'.$signature);
+		$callback_url = 'http://'.$_SERVER['HTTP_HOST'].'/transaction/update/id/'.$transaction->id.'/signature/'.$signature;
 		
-		$blockchain = new \Blockchain\Blockchain(BLOCKCHAIN_API_KEY);
-		//$blockchain->setTimeout(10);
+		// $blockchain = new \Blockchain\Blockchain(BLOCKCHAIN_API_KEY);
+		// $response = $blockchain->Receive->generate(ADDRESS, $callback_url);
 		
-		$response = $blockchain->Receive->generate(ADDRESS, $callback_url);
-		
-		// $root_url = 'https://blockchain.info/api/receive';
-		// $parameters = 'method=create&address=' . ADDRESS .'&callback='. $callback_url;
-		// $response = file_get_contents($root_url . '?' . $parameters);
-		// $object = json_decode($response);
+		$root_url = 'https://blockchain.info/api/receive';
+		$parameters = 'method=create&address=' . ADDRESS .'&callback='. urlencode($callback_url);
+		$response = file_get_contents($root_url . '?' . $parameters);
+		$response = json_decode($response);
 	
 		// save response parameters
 		$transaction->input_address = $response->address;

@@ -75,20 +75,22 @@ class Transaction_Controller extends Base_Controller {
 
 		$transaction->save();
 		
-		header('Content-Type: image/png');
+		echo 'Send coins to '.$object->input_address;
+		
+		// header('Content-Type: image/png');
 
-		$qrCode = new Endroid\QrCode\QrCode;
-		$qrCode
-		    ->setText($object->input_address)
-		    ->setSize(300)
-		    ->setPadding(10)
-		    ->setErrorCorrection('high')
-		    ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
-		    ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
-		    ->setLabel('Send coins to '.$object->input_address)
-		    ->setLabelFontSize(16)
-		    ->render()
-		;
+		// $qrCode = new Endroid\QrCode\QrCode;
+		// $qrCode
+		//     ->setText($object->input_address)
+		//     ->setSize(300)
+		//     ->setPadding(10)
+		//     ->setErrorCorrection('high')
+		//     ->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0))
+		//     ->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0))
+		//     ->setLabel('Send coins to '.$object->input_address)
+		//     ->setLabelFontSize(16)
+		//     ->render()
+		// ;
 		
 		$this->log->addInfo($transaction);
 	}

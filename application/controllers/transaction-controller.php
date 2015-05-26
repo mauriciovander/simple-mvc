@@ -60,7 +60,8 @@ class Transaction_Controller extends Base_Controller {
 
 		$transaction->save();
 		
-		$this->render();
+		$data = array('input_address'=>$response->input_address);
+		$this->render($data);
 		
 		$this->log->addInfo($transaction);
 	}

@@ -47,8 +47,8 @@ abstract class Base_Controller implements Base_Controller_Interface {
 		$this->log->pushHandler(new Monolog\Handler\StreamHandler(LOGS.'/app.log', Monolog\Logger::INFO));
 	}
 
-
-  public function render($template_path = null) {
+  public function render(Array $data = array(), $template_path = null) {
+    foreach($data as $k => $v) $$k = $v;
     if(is_null($template_path)) $template_path = $this->router->controller.'/'.$this->router->action.'.php';
     try {
       include(VIEWS.'/'.$template_path);

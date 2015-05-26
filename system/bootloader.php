@@ -16,9 +16,11 @@ require CONFIG.'/constants.php';
 require 'autoloader.php';
 
 class Router {
-	private $controller;
-	private $action;
+	private $controller_instance;
 
+  public $controller;
+  public $action;
+  
 	public function __construct() {
 
 		$parts = explode ( '/', $_REQUEST['rt'] );
@@ -29,7 +31,7 @@ class Router {
 		$this->controller = reset($parts);
 		if(empty($this->controller)) $this->controller = 'index';
 		$controller_name = ucwords(strtolower($this->controller)).'_Controller';
-		$this->controller = new $controller_name($this);
+		$this->controller_instance = new $controller_name($this);
 
 		$this->action = next($parts);
 		if(empty($this->action)) $this->action = 'index';
@@ -39,22 +41,22 @@ class Router {
 		while($k){
 			$v = next($parts);
 			if(!empty($v)) {
-				$this->controller->{$k}= $v;
-				$this->controller->{$k}->method = 'get';
+				$this->controller_instance->{$k}= $v;
+				$this->controller_instance->{$k}->method = 'get';
 			}
 			$k = next($parts);
 		}
 		foreach($_GET as $k=>$v){
-			$this->controller->{$k}= $v;
-			$this->controller->{$k}->method = 'get';
+			$this->controller_instance->{$k}= $v;
+			$this->controller_instance->{$k}->method = 'get';
 		}
 		foreach($_POST as $k=>$v){
-			$this->controller->{$k}= $v;
-			$this->controller->{$k}->method = 'post';
+			$this->controller_instance->{$k}= $v;
+			$this->controller_instance->{$k}->method = 'post';
 		}
 	}
 
 	public function execute() {
-		$this->controller->{$this->action}();
+		$this->controller_instance->{$this->action}();
 	}
 }

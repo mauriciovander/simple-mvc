@@ -18,7 +18,8 @@
         "monolog/monolog": "1.13.*@dev",
         "gregwar/captcha": "dev-master",
         "blockchain/blockchain": "dev-master",
-        "curl/curl": "dev-master"
+        "curl/curl": "dev-master",
+        "endroid/qrcode": "1.*@dev"
     },
     "support": {
         "email": "mauriciovander@gmail.com",

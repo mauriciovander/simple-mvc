@@ -1,9 +1,7 @@
 
 <?
 
-
 // https://blockchain.info/api/api_receive/
-
 
 class Transaction_Controller extends Base_Controller {
 	public function index(){

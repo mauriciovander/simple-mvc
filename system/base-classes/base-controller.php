@@ -55,7 +55,7 @@ abstract class Base_Controller implements Base_Controller_Interface {
 	}
 
 	public function __get($k){
-		if(isset($this->input->{$k})) return $this->input->{$k};
+		if(isset($this->input->{$k})) return (String)$this->input->{$k};
 		else throw new Controller_Exception(get_called_class ()."->$k is not defined", 1);
 	}
 

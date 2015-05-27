@@ -21,9 +21,10 @@ require CONFIG.'/constants.php';
 require BASE_CLASSES.'/base-controller.php';
 require BASE_CLASSES.'/base-model.php';
 require BASE_CLASSES.'/base-class.php';
-require 'autoloader.php';
 
-require 'router.php';
+require SYSTEM.'/autoloader.php';
+require SYSTEM.'/db.php';
+require SYSTEM.'/router.php';
 
 
 // Start

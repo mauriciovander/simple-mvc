@@ -1,4 +1,4 @@
-<?
+<?php
 
 class Router {
 	private $controller_instance;

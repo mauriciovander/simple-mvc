@@ -1,5 +1,5 @@
 
-<?
+<?php
 
 // https://blockchain.info/api/api_receive/
 

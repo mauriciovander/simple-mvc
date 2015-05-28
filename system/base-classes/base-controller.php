@@ -1,4 +1,4 @@
-<?
+<?php
 
 interface Base_Controller_Interface { public function index(); }
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 interface Base_Model_Interface {}
 

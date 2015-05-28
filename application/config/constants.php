@@ -1,4 +1,4 @@
-<?
+<?php
 
 // general constants
 define('BACKEND',php_uname('n'));

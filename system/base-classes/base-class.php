@@ -1,4 +1,4 @@
-<?
+<?php
 
 interface Base_Class_Interface {}
 

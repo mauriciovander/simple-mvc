@@ -1,4 +1,4 @@
-<?
+<?php
 
 // place your personal config settings in application scope
 // SUGGESTION: use /usr/share/php5/global_config.php and set 

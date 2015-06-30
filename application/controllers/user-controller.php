@@ -30,8 +30,6 @@ class User_Controller extends Base_Controller {
 	     throw new Controller_Exception("Invalid password", 400);
 	  }
 	  	  
-    echo $user;
+    	  echo $user;
 	}
-	
-
 }

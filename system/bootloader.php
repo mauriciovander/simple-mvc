@@ -23,6 +23,7 @@ require BASE_CLASSES.'/base-model.php';
 require BASE_CLASSES.'/base-class.php';
 
 require SYSTEM.'/autoloader.php';
+require SYSTEM.'/util.php';
 require SYSTEM.'/db.php';
 require SYSTEM.'/router.php';
 

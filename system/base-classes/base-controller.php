@@ -11,6 +11,8 @@ class Controller_Exception extends Exception {
 	}		
 }
 
+class Controller_Success extends Controller_Success { }
+
 abstract class Data_Object implements JsonSerializable{
 	public $value;
 	public $method;

@@ -64,6 +64,37 @@ abstract class Base_Controller implements Base_Controller_Interface {
         $this->log->pushHandler(new Monolog\Handler\StreamHandler(LOGS . '/app.log', Monolog\Logger::INFO));
     }
 
+    private function setHeader($message, $code) {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST');
+        header('Access-Control-Allow-Headers: Content-Type, Accept');
+        header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        header("HTTP/1.0 " . $code . " " . $message);
+    }
+
+    protected function error($message = 'Error', $code = 400, $data = null) {
+        $this->setHeader($message, $code);
+        $response = new stdClass();
+        $response->message = $message;
+        $response->status = 'error';
+        $response->code = $code;
+        $response->data = (!is_null($data)) ? $data : $this->output;
+        echo json_encode($response);
+    }
+
+    protected function success($message = 'Success', $code = 200, $data = null) {
+        $this->setHeader($message, $code);
+        $response = new stdClass();
+        $response->message = $message;
+        $response->status = 'success';
+        $response->code = $code;
+        $response->data = (!is_null($data)) ? $data : $this->output;
+        echo json_encode($response);
+    }
+    
     public function render(Array $data = array(), $template_path = null) {
         foreach ($data as $k => $v) {
             $$k = $v;

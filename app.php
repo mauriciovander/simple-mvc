@@ -487,18 +487,7 @@ class Application {
 
 }
 
-class CliArgs {
-
-    private $args;
-
-    public function __construct($argv) {
-        $this->args = $argv;
-    }
-
-}
-
 $context = new \App\Context;
-
 
 $app = new \App\Application($context->getContext(), $argv);
 
